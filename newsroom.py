@@ -18,8 +18,12 @@ class Newsroom:
         }
 
     def get_news(self,ticker):
-        self.PARAMETERS["q"] = constans.TICKER_TO_NAME.get(ticker,ticker)
-        response = requests.get(url=self.URL, params=self.PARAMETERS)
-        response.raise_for_status()
-        data = response.json()["articles"]
-        return [(item["title"],item["url"]) for item in data]
+        try:
+            self.PARAMETERS["q"] = constans.TICKER_TO_NAME.get(ticker,ticker)
+            response = requests.get(url=self.URL, params=self.PARAMETERS)
+            response.raise_for_status()
+            data = response.json()["articles"]
+            return [(item["title"],item["url"]) for item in data]
+        except Exception as e:
+            print(f"Error code {e}")
+            return []

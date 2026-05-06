@@ -15,8 +15,8 @@ class StockScreener:
         try:
             df = stock_df(symbol="INFY", from_date=date, to_date=date, series="EQ")
             return True
-        except KeyError:
-            print("Markets closed")
+        except Exception as e:
+            print(f"Check below error code {e}")
             return False
 
     def check_stock_data(self):
@@ -41,6 +41,8 @@ class StockScreener:
         except Exception as e:
             print(f"skipping {self.ticker} for {e}")
             return False
+
+            
 
 
 

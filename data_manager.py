@@ -14,8 +14,14 @@ class DataManager:
         def return_delivery_mean(self, ticker):
             return self.historic_data[self.historic_data["Ticker"] == ticker]["Delivery %"].mean()
 
-        def nifty_movement(self,date):
-            return self.historic_nifty[self.historic_nifty["Call_date"]==pd.Timestamp(date)]["nifty_pchange"].values[0]
+        def nifty_movement(self, date):
+            result = self.historic_nifty[
+                self.historic_nifty["Call_date"] == pd.Timestamp(date)
+                ]["nifty_pchange"]
+
+            if result.empty:
+                return 0
+            return result.values[0]
         def check_duplicates_historic(self, ticker, date):
             already_exists = (
                     (self.historic_data["Ticker"] == ticker) &

@@ -23,6 +23,7 @@ if not screener.check_market_closed(yesterday):
     exit()
 if not screener.check_stock_data():
     exit()
+datamanager.append_nifty_file(yesterday,screener.today_nifty_movement)
 for i in range(1,51):
     time.sleep(5)
     if not screener.get_data(i,yesterday):
@@ -40,7 +41,7 @@ for i in range(1,51):
     datamanager.append_historic_data(yesterday,screener.ticker,screener.traded_volume,screener.delivery_percent)
 #################end of for stock iterations#################
 
-datamanager.append_nifty_file(yesterday,screener.today_nifty_movement)
+
 datamanager.remove_historic_data()
 # mailer.send_mail(ticker_list)
 news_body ="Below are the breakout stocks and the news that drove it(possibly!!). If the list and message below is empty, there were possibly no breakout for the day. Check logs\n"
